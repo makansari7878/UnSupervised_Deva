@@ -21,16 +21,23 @@ predict = model.fit_predict(sal_data[['Age', 'Salary']])
 sal_data['myclusters'] = predict
 #print(sal_data.tail())
 
+centroids = model.cluster_centers_
+centroids_x = centroids[:,0]
+centroids_y = centroids[:,1]
+
+
+
 df0 = sal_data[sal_data['myclusters'] == 0]
 print(df0)
 df1 = sal_data[sal_data['myclusters'] == 1]
 df2 = sal_data[sal_data['myclusters'] == 2]
 df3 = sal_data[sal_data['myclusters'] == 3]
 
-plt.scatter(df0['Age'], df0['Salary'], color = 'red')
+plt.scatter(df0['Age'], df0['Salary'], color = 'orange')
 plt.scatter(df1['Age'], df1['Salary'], color = 'blue')
 plt.scatter(df2['Age'], df2['Salary'], color = 'green')
 plt.scatter(df3['Age'], df3['Salary'], color = 'yellow')
+plt.scatter(centroids_x,centroids_y, marker = '*', color = 'red')
 
 plt.xlabel('AGE')
 plt.ylabel('SALARY IN $')
@@ -38,7 +45,9 @@ plt.ylabel('SALARY IN $')
 plt.show()
 
 
-
+# sns.set_style('whitegrid')
+# sns.lmplot(data=sal_data, x ='Age', y='Salary', hue='myclusters', palette='coolwarm', fit_reg=False )
+# plt.show()
 
 print(model.cluster_centers_)
 
@@ -54,7 +63,16 @@ for k in k_range:
 
 print(sse)
 
-plt.scatter(k_range, sse )
-plt.xlabel('K')
-plt.ylabel('SSE')
-plt.show()
+# plt.scatter(k_range, sse )
+# plt.xlabel('K')
+# plt.ylabel('SSE')
+# plt.show()
+
+centroids = model.cluster_centers_
+centroids_x = centroids[:,0]
+centroids_y = centroids[:,1]
+
+# plt.scatter(centroids_x,centroids_y)
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.show()
